@@ -30,7 +30,7 @@ public class SearchManager {
 		String indexDir = "C:\\index";
 		
 		// 검색 키워드
-		String keyword = "*깨끗*만들자*";
+		String keyword = "*검색어*";
 		
 		Directory dir = null;
 		IndexReader indexReader = null;
@@ -52,7 +52,7 @@ public class SearchManager {
 			int docCount = 0;
 			if (docs.scoreDocs != null) {
 				docCount = docs.scoreDocs.length;
-				System.out.println(docCount);
+				System.out.println("검색결과 : " + docCount + "개");
 				Document doc = null;
 				for (int i=0; i<docCount; i++) {
 					doc = indexSearcher.doc(docs.scoreDocs[i].doc);

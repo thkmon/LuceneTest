@@ -1,6 +1,7 @@
 package com.thkmon.lucene;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -39,12 +40,19 @@ public class IndexManager {
 			config = new IndexWriterConfig(new StandardAnalyzer());
 			indexWriter = new IndexWriter(dir, config);
 			
-			File[] fileArr = new File(dataDir).listFiles();
-			int fileCount = fileArr.length;
+//			File[] fileArr = new File(dataDir).listFiles();
+//			int fileCount = fileArr.length;
+			
+			ArrayList<String> fileList = new ArrayList<String>();
+			FileReadUtil.addAllTextFiles(fileList, new File(dataDir));
+			int fileCount = fileList.size();
+			
+			System.out.println("파일개수 : " + fileCount + "개");
 			
 			File file = null;
 			for (int i=0; i<fileCount; i++) {
-				file = fileArr[i];
+				// file = fileArr[i];
+				file = new File(fileList.get(i));
 				
 				if (file.isDirectory()) {
 					continue;
@@ -67,7 +75,7 @@ public class IndexManager {
 				}
 			}
 			
-			System.out.println(indexWriter.numRamDocs());
+			System.out.println(indexWriter.numRamDocs() + "개 파일 색인처리 완료.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

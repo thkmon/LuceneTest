@@ -136,7 +136,7 @@ public class FileReadUtil {
 			}
 			
 		} else if (fileObj.isFile()) {
-			if (fileObj.getCanonicalPath() != null && fileObj.getCanonicalPath().endsWith(".txt")) {
+			if (fileObj.getCanonicalPath() != null && fileObj.getCanonicalPath().toLowerCase().endsWith(".txt")) {
 				fileList.add(fileObj.getCanonicalPath());
 			}
 		}
