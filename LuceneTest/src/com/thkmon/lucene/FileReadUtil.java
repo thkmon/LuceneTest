@@ -103,4 +103,42 @@ public class FileReadUtil {
 		
 		return buff.toString();
 	}
+	
+	
+	/**
+	 * fileList 객체에 텍스트 파일을 담는다.
+	 * fileObj 객체가 폴더일 경우 하위의 모든 텍스트 파일을 담는다.
+	 * 
+	 * @param fileList
+	 * @param file
+	 * @throws Exception
+	 */
+	public static void addAllTextFiles(ArrayList<String> fileList, File fileObj) throws Exception {
+		if (fileList == null) {
+			return;
+		}
+		
+		if (fileObj == null) {
+			return;
+		}
+		
+		if (!fileObj.exists()) {
+			return;
+		}
+		
+		if (fileObj.isDirectory()) {
+			File[] fileArr = fileObj.listFiles();
+			if (fileArr != null && fileArr.length > 0) {
+				int fileCount = fileArr.length;
+				for (int i=0; i<fileCount; i++) {
+					addAllTextFiles(fileList, fileArr[i]);
+				}
+			}
+			
+		} else if (fileObj.isFile()) {
+			if (fileObj.getCanonicalPath() != null && fileObj.getCanonicalPath().endsWith(".txt")) {
+				fileList.add(fileObj.getCanonicalPath());
+			}
+		}
+	}
 }
